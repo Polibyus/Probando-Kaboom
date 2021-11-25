@@ -1,6 +1,7 @@
 const FLOOR_HEIGHT = 48;
 const JUMP_FORCE = 800;
 const SPEED = 480
+let HP = 3
 
 // initialize kaboom context
 kaboom();
@@ -19,6 +20,7 @@ scene("game", () => {
         pos(80, 40),
         area(),
         body(),
+        health(HP),
     ])
     // add platform
     add([
@@ -61,15 +63,26 @@ scene("game", () => {
     poli.onCollide("tree", () => {
         addKaboom(poli.pos);
         shake();
-        go("lose", score); // go to "lose" scene here
+        poli.hurt(1);
+        HP = HP - 1;
+        HPlabel.text = HP;
     });
 
+    poli.on("death", () => {
+        destroy(poli)
+        go("lose", score)
+    })
     // score counter on time
     let score = 0;
 
     const scoreLabel = add([
         text(score),
         pos(24, 24)
+    ])
+
+    const HPlabel = add([
+        text(HP),
+        pos(980, 24)
     ])
 
     onUpdate(() => {
