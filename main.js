@@ -1,4 +1,4 @@
-const FLOOR_HEIGHT = 48;
+const FLOOR_HEIGHT = 480;
 const JUMP_FORCE = 800;
 const SPEED = 480
 let HP = 3
@@ -10,7 +10,6 @@ kaboom();
 loadSprite("poli", "sprites/poli.png")
 
 scene("game", () => {
-
     // gravity
     gravity(2400);
 
@@ -31,6 +30,11 @@ scene("game", () => {
         area(),
         solid(),
         color(127, 200, 255),
+    ])
+
+    add([
+        text("Click o espacio para saltar y esquivar los obstaculos"),
+        pos(190, 200)
     ])
     // jump and colides
     // avoid using jump in air
